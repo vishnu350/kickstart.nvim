@@ -209,11 +209,12 @@ vim.keymap.set('v', '<Tab>', '>gv')
 vim.keymap.set('v', '<S-Tab>', '<gv')
 vim.keymap.set('n', '.', '<C-E>')
 vim.keymap.set('n', ',', '<C-Y>')
-vim.keymap.set('n', '<F1>', ':edit!<CR>')
-vim.keymap.set('n', '<F2>', ':echo @%<CR>')
+vim.keymap.set('n', '<F1>', ':LspRestart<cr>:edit!<CR>')
+vim.keymap.set('n', '<F2>', ':file<CR>')
 vim.keymap.set('n', '<F3>', ':set nu!<CR>')
-vim.keymap.set('n', '<F4>', ':bp<CR>')
+vim.keymap.set('n', '<F4>', ':Te<CR>')
 vim.keymap.set('n', '<F8>', ':diffoff! | windo diffthis<CR>')
+vim.keymap.set('n', '<F10>', ':qa<CR>')
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -233,8 +234,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
+  local lazyversion = 'bef521a' -- Stable version
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch', lazyversion, lazyrepo, lazypath }
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
@@ -440,6 +442,8 @@ require('lazy').setup({
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+      -- Setup LSPs
       require('lspconfig').gdscript.setup(capabilities)
 
       -- Enable the following language servers
