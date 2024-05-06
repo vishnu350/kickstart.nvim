@@ -100,9 +100,6 @@ vim.g.have_nerd_font = true
 
 -- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -201,6 +198,8 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Custom keymapping
+vim.keymap.set('n', '<leader>o', ':Te<CR>', { desc = '[O]pen file explorer' })
+vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'Close files and [Q]uit' })
 vim.keymap.set('n', 'P', 'p')
 vim.keymap.set('n', 'p', 'P')
 vim.keymap.set('n', '\\', ':tabn<CR>')
@@ -212,9 +211,7 @@ vim.keymap.set('n', ',', '<C-Y>')
 vim.keymap.set('n', '<F1>', ':LspRestart<cr>:edit!<CR>')
 vim.keymap.set('n', '<F2>', ':file<CR>')
 vim.keymap.set('n', '<F3>', ':set nu!<CR>')
-vim.keymap.set('n', '<F4>', ':Te<CR>')
 vim.keymap.set('n', '<F8>', ':diffoff! | windo diffthis<CR>')
-vim.keymap.set('n', '<F10>', ':qa<CR>')
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -746,6 +743,11 @@ require('lazy').setup({
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
+  },
+
+  { -- This plugin provides web-devicons
+    'nvim-tree/nvim-web-devicons',
+    enabled = vim.g.have_nerd_font,
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
