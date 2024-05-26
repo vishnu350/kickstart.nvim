@@ -199,6 +199,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Custom keymapping
 vim.keymap.set('n', '<leader>o', ':Te<CR>', { desc = '[O]pen file explorer' })
 vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'Close files and [Q]uit' })
+vim.keymap.set('n', '<leader>S', ':setlocal spell spelllang=en_us<CR>', { desc = 'Spellcheck (en-US)' })
 vim.keymap.set('n', 'P', 'p')
 vim.keymap.set('n', 'p', 'P')
 vim.keymap.set('n', '\\', ':tabn<CR>')
