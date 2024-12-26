@@ -791,6 +791,32 @@ require('lazy').setup({
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
 
+  { -- This plugin allows hex editing
+    'RaafatTurki/hex.nvim',
+    -- defaults
+    config = function()
+      require('hex').setup {
+        -- cli command used to dump hex data
+        dump_cmd = 'xxd -g 1 -u',
+
+        -- cli command used to assemble from hex data
+        assemble_cmd = 'xxd -r',
+
+        -- function that runs on BufReadPre to determine if it's binary or not
+        is_file_binary_pre_read = function()
+          -- logic that determines if a buffer contains binary data or not
+          -- must return a bool
+        end,
+
+        -- function that runs on BufReadPost to determine if it's binary or not
+        is_file_binary_post_read = function()
+          -- logic that determines if a buffer contains binary data or not
+          -- must return a bool
+        end,
+      }
+    end,
+  },
+
   { -- This plugin allows viewing pictures in nvim
     '3rd/image.nvim',
     build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
