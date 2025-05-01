@@ -903,7 +903,7 @@ require('lazy').setup({
       integrations = {
         markdown = {
           enabled = true,
-          clear_in_insert_mode = true,
+          clear_in_insert_mode = false,
           download_remote_images = false,
           only_render_image_at_cursor = false,
           only_render_image_at_cursor_mode = 'popup',
