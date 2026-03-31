@@ -533,9 +533,11 @@ require('lazy').setup({
       },
 
       completion = {
-        -- By default, you may press `<c-space>` to show the documentation.
-        -- Optionally, set `auto_show = true` to show the documentation after a delay.
+        -- List options will not auto-insert itself into the text
+        list = { selection = { preselect = false, auto_insert = false }},
+        -- Menu only shows after `<c-space>`
         menu = { auto_show = false, auto_show_delay_ms = 500 },
+        -- By default, you may press `<c-space>` to show the documentation.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
       },
 
