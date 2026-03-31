@@ -468,6 +468,8 @@ require('lazy').setup({
     event = 'VimEnter',
     version = '1.*',
     dependencies = {
+      -- Provides source for dictionary/thesaurus
+      'archie-judd/blink-cmp-words',
       -- Snippet Engine
       {
         'L3MON4D3/LuaSnip',
@@ -518,7 +520,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'enter',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -533,6 +535,7 @@ require('lazy').setup({
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
+        menu = { auto_show = false, auto_show_delay_ms = 500 },
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
       },
 
@@ -553,6 +556,44 @@ require('lazy').setup({
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
+
+      -- Optionally add 'dictionary', or 'thesaurus' to default sources
+      sources = {
+        default = { "lsp", "path" },
+        providers = {
+
+          -- Use the thesaurus source
+          thesaurus = {
+            name = "blink-cmp-words",
+            module = "blink-cmp-words.thesaurus",
+            -- All available options
+            opts = {
+              score_offset = 0,
+              definition_pointers = { "!", "&", "^" },
+              similarity_pointers = { "&", "^" },
+              similarity_depth = 2,
+            },
+          },
+
+          -- Use the dictionary source
+          dictionary = {
+            name = "blink-cmp-words",
+            module = "blink-cmp-words.dictionary",
+            -- All available options
+            opts = {
+              dictionary_search_threshold = 3,
+              score_offset = 0,
+              definition_pointers = { "!", "&", "^" },
+            },
+          },
+        },
+
+        -- Setup completion by filetype
+        per_filetype = {
+          text = { "dictionary" },
+          markdown = { "thesaurus" },
+        },
+      },
     },
   },
 
