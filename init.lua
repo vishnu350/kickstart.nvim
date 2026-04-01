@@ -242,6 +242,7 @@ vim.keymap.set('n', '<F3>', ':set nu!<CR>')
 vim.keymap.set('n', '<F4>', ':set expandtab!<CR>')
 vim.keymap.set('n', '<F6>', ':HexToggle<CR>')
 vim.keymap.set('n', '<F8>', ':diffoff! | windo diffthis<CR>')
+vim.keymap.set('n', '<Tab>', 'i')
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -497,7 +498,7 @@ require('lazy').setup({
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'enter',
-        ["<Tab>"] = {"select_next", "fallback"},
+        ["<Tab>"] = {"show", "select_next", "fallback"},
         ["<S-Tab>"] = {"select_prev", "fallback"},
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
@@ -525,7 +526,7 @@ require('lazy').setup({
         -- Menu only shows after `<c-space>`
         menu = { auto_show = false, auto_show_delay_ms = 500 },
         -- By default, you may press `<c-space>` to show the documentation.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
       },
 
       sources = {
