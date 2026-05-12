@@ -160,7 +160,7 @@ vim.o.cursorline = false
 --vim.o.scrolloff = 10
 
 -- Open all files as tabs
-vim.cmd [[autocmd VimEnter * tab all]]
+vim.cmd [[autocmd VimEnter * tab all | call timer_start(100, {-> execute('tabdo edit')})]]
 
 -- Custom opts
 vim.o.guicursor = 'i:block'
@@ -169,6 +169,7 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.smartindent = true
 vim.o.conceallevel = 2
+--vim.o.expandtab = true
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
@@ -244,6 +245,29 @@ vim.keymap.set('n', '<Tab>', 'i', { noremap = true })
 vim.keymap.set('v', '<Tab>', '>gv', { noremap = true })
 vim.keymap.set('v', '<S-Tab>', '<gv', { noremap = true })
 vim.keymap.set({'n', 'v'}, '<C-S>', '<C-A>', { noremap = true })
+
+-- Add filesystem types
+vim.filetype.add({
+  extension = {
+    am = "bash",
+    vh = "systemverilog",
+    svh = "systemverilog",
+    godot = "confini",
+  },
+})
+
+-- Deal with large files
+vim.api.nvim_create_autocmd("BufReadPre", {
+  callback = function()
+    local size = vim.fn.getfsize(vim.fn.expand "<afile>")
+    if size > 10485760 then -- 10MB
+      vim.cmd "set syntax=off"
+      vim.cmd "set foldmethod=manual"
+      vim.cmd "set noswapfile"
+      vim.cmd "set noundofile"
+    end
+  end,
+})
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
