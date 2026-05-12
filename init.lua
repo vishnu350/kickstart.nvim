@@ -159,8 +159,8 @@ vim.o.cursorline = false
 -- Minimal number of screen lines to keep above and below the cursor.
 --vim.o.scrolloff = 10
 
--- Open all files as tabs
-vim.cmd [[autocmd VimEnter * tab all | call timer_start(100, {-> execute('tabdo edit')})]]
+-- Open all files as tabs (waits, then checks if it is a valid buffer and :edit reload for syntax highlighting)
+vim.cmd [[autocmd VimEnter * tab all | call timer_start(500, {-> execute('tabdo if bufname("%") != "" | edit | endif')})]]
 
 -- Custom opts
 vim.o.guicursor = 'i:block'
@@ -253,6 +253,8 @@ vim.filetype.add({
     vh = "systemverilog",
     svh = "systemverilog",
     godot = "confini",
+    import = "confini",
+    gltf = "json",
   },
 })
 
