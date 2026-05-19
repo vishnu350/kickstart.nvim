@@ -163,6 +163,7 @@ vim.o.cursorline = false
 vim.cmd [[autocmd VimEnter * tab all | call timer_start(500, {-> execute('tabdo if bufname("%") != "" | edit | endif')})]]
 
 -- Custom opts
+vim.o.autoread = false
 vim.o.guicursor = 'i:block'
 vim.o.splitright = true
 vim.o.tabstop = 4
@@ -229,6 +230,8 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>o', ':Te<CR>', { desc = '[O]pen file explorer' })
 vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'Close files and [Q]uit' })
 vim.keymap.set('n', '<leader>S', ':setlocal spell spelllang=en_us<CR>', { desc = '[S]pellcheck (en-US)' })
+vim.keymap.set('n', '<leader>g', ':Gitsigns next_hunk<CR>', { desc = '[G]it-diff next hunk' })
+vim.keymap.set('n', '<leader>G', ':Gitsigns prev_hunk<CR>', { desc = '[G]it-diff prev hunk' })
 vim.keymap.set('n', 'P', 'p', { noremap = true })
 vim.keymap.set('n', 'p', 'P', { noremap = true })
 vim.keymap.set('n', '\\', ':tabn<CR>', { noremap = true })
