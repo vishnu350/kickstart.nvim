@@ -225,7 +225,7 @@ vim.keymap.set('v', '<Tab>', '>gv', { noremap = true })
 vim.keymap.set('v', '<S-Tab>', '<gv', { noremap = true })
 vim.keymap.set('n', 'P', 'p', { noremap = true })
 vim.keymap.set('n', 'p', 'P', { noremap = true })
----- Numerical increment - ctrl-S to avoid conflict with screen/tmux
+---- Numerical increment - ctrl-S/X to avoid conflict with screen/tmux
 vim.keymap.set({'n', 'v'}, '<C-S>', '<C-A>', { noremap = true })
 -- Custom keymaps (navigation)
 vim.keymap.set('n', '\\', ':tabn<CR>', { noremap = true })
