@@ -211,18 +211,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Custom keymapping
-vim.keymap.set('n', '<leader>o', ':Te<CR>', { desc = '[O]pen file explorer', noremap = true })
-vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'Close files and [Q]uit', noremap = true })
-vim.keymap.set('n', '<leader>S', ':setlocal spell spelllang=en_us<CR>', { desc = '[S]pellcheck (en-US)', noremap = true })
-vim.keymap.set('n', '<leader>g', ':Gitsigns next_hunk<CR>', { desc = '[G]it-diff next hunk', noremap = true })
-vim.keymap.set('n', '<leader>G', ':Gitsigns prev_hunk<CR>', { desc = '[G]it-diff prev hunk', noremap = true })
-vim.keymap.set('n', 'P', 'p', { noremap = true })
-vim.keymap.set('n', 'p', 'P', { noremap = true })
-vim.keymap.set('n', '\\', ':tabn<CR>', { noremap = true })
-vim.keymap.set('n', '|', ':tabp<CR>', { noremap = true })
-vim.keymap.set('n', '.', '<C-E>', { noremap = true })
-vim.keymap.set('n', ',', '<C-Y>', { noremap = true })
+-- Custom keymaps (function keys)
 vim.keymap.set('n', '<F1>', ':LspRestart<cr>:edit!<CR>', { noremap = true })
 vim.keymap.set('n', '<F2>', ':file<CR>', { noremap = true })
 vim.keymap.set('n', '<F3>', ':set nu!<CR>', { noremap = true })
@@ -230,16 +219,30 @@ vim.keymap.set('n', '<F4>', ':set expandtab!<CR>', { noremap = true })
 vim.keymap.set('n', '<F6>', ':HexToggle<CR>', { noremap = true })
 vim.keymap.set('n', '<F7>', ':set scrollbind!<CR>', { noremap = true })
 vim.keymap.set('n', '<F8>', ':diffoff! | windo diffthis<CR>', { noremap = true })
+-- Custom keymaps (editing)
 vim.keymap.set('n', '<Tab>', 'i', { noremap = true })
 vim.keymap.set('v', '<Tab>', '>gv', { noremap = true })
 vim.keymap.set('v', '<S-Tab>', '<gv', { noremap = true })
+vim.keymap.set('n', 'P', 'p', { noremap = true })
+vim.keymap.set('n', 'p', 'P', { noremap = true })
+---- Numerical increment - ctrl-S to avoid conflict with screen/tmux
 vim.keymap.set({'n', 'v'}, '<C-S>', '<C-A>', { noremap = true })
+-- Custom keymaps (navigation)
+vim.keymap.set('n', '\\', ':tabn<CR>', { noremap = true })
+vim.keymap.set('n', '|', ':tabp<CR>', { noremap = true })
+vim.keymap.set('n', '.', '<C-E>', { noremap = true })
+vim.keymap.set('n', ',', '<C-Y>', { noremap = true })
 vim.keymap.set('n', '<C-Up>', '<C-w>k', { noremap = true })
 vim.keymap.set('n', '<C-Down>', '<C-w>j', { noremap = true })
 vim.keymap.set('n', '<C-Left>', '<C-w>h', { noremap = true })
 vim.keymap.set('n', '<C-Right>', '<C-w>l', { noremap = true })
-
--- Override git-diff next/prev hunk when using vs diff mdde
+-- Custom keymaps (leader key)
+vim.keymap.set('n', '<leader>o', ':Te<CR>', { desc = '[O]pen file explorer', noremap = true })
+vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'Close files and [Q]uit', noremap = true })
+vim.keymap.set('n', '<leader>S', ':setlocal spell spelllang=en_us<CR>', { desc = '[S]pellcheck (en-US)', noremap = true })
+vim.keymap.set('n', '<leader>g', ':Gitsigns next_hunk<CR>', { desc = '[G]it-diff next hunk', noremap = true })
+vim.keymap.set('n', '<leader>G', ':Gitsigns prev_hunk<CR>', { desc = '[G]it-diff prev hunk', noremap = true })
+-- Override git-diff next/prev hunk when in vs diff mode
 vim.api.nvim_create_autocmd('OptionSet', {
   pattern = 'diff',
   callback = function()
