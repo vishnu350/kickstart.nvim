@@ -211,27 +211,12 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
 -- Custom keymapping
-vim.keymap.set('n', '<leader>o', ':Te<CR>', { desc = '[O]pen file explorer' })
-vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'Close files and [Q]uit' })
-vim.keymap.set('n', '<leader>S', ':setlocal spell spelllang=en_us<CR>', { desc = '[S]pellcheck (en-US)' })
-vim.keymap.set('n', '<leader>g', ':Gitsigns next_hunk<CR>', { desc = '[G]it-diff next hunk' })
-vim.keymap.set('n', '<leader>G', ':Gitsigns prev_hunk<CR>', { desc = '[G]it-diff prev hunk' })
+vim.keymap.set('n', '<leader>o', ':Te<CR>', { desc = '[O]pen file explorer', noremap = true })
+vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'Close files and [Q]uit', noremap = true })
+vim.keymap.set('n', '<leader>S', ':setlocal spell spelllang=en_us<CR>', { desc = '[S]pellcheck (en-US)', noremap = true })
+vim.keymap.set('n', '<leader>g', ':Gitsigns next_hunk<CR>', { desc = '[G]it-diff next hunk', noremap = true })
+vim.keymap.set('n', '<leader>G', ':Gitsigns prev_hunk<CR>', { desc = '[G]it-diff prev hunk', noremap = true })
 vim.keymap.set('n', 'P', 'p', { noremap = true })
 vim.keymap.set('n', 'p', 'P', { noremap = true })
 vim.keymap.set('n', '\\', ':tabn<CR>', { noremap = true })
@@ -243,11 +228,27 @@ vim.keymap.set('n', '<F2>', ':file<CR>', { noremap = true })
 vim.keymap.set('n', '<F3>', ':set nu!<CR>', { noremap = true })
 vim.keymap.set('n', '<F4>', ':set expandtab!<CR>', { noremap = true })
 vim.keymap.set('n', '<F6>', ':HexToggle<CR>', { noremap = true })
+vim.keymap.set('n', '<F7>', ':set scrollbind!<CR>', { noremap = true })
 vim.keymap.set('n', '<F8>', ':diffoff! | windo diffthis<CR>', { noremap = true })
 vim.keymap.set('n', '<Tab>', 'i', { noremap = true })
 vim.keymap.set('v', '<Tab>', '>gv', { noremap = true })
 vim.keymap.set('v', '<S-Tab>', '<gv', { noremap = true })
 vim.keymap.set({'n', 'v'}, '<C-S>', '<C-A>', { noremap = true })
+vim.keymap.set('n', '<C-Up>', '<C-w>k', { noremap = true })
+vim.keymap.set('n', '<C-Down>', '<C-w>j', { noremap = true })
+vim.keymap.set('n', '<C-Left>', '<C-w>h', { noremap = true })
+vim.keymap.set('n', '<C-Right>', '<C-w>l', { noremap = true })
+
+-- Override git-diff next/prev hunk when using vs diff mdde
+vim.api.nvim_create_autocmd('OptionSet', {
+  pattern = 'diff',
+  callback = function()
+    if vim.wo.diff then
+      vim.keymap.set('n', '<leader>g', ']c', { desc = 'VS diff next hunk', noremap = true, buffer = true })
+      vim.keymap.set('n', '<leader>G', '[c', { desc = 'VS diff prev hunk', noremap = true, buffer = true })
+    end
+  end,
+})
 
 -- Add filesystem types
 vim.filetype.add({
