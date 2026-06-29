@@ -242,6 +242,7 @@ vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'Close files and [Q]uit', n
 vim.keymap.set('n', '<leader>S', ':setlocal spell spelllang=en_us<CR>', { desc = '[S]pellcheck (en-US)', noremap = true })
 vim.keymap.set('n', '<leader>g', ':Gitsigns next_hunk<CR>', { desc = '[G]it-diff next hunk', noremap = true })
 vim.keymap.set('n', '<leader>G', ':Gitsigns prev_hunk<CR>', { desc = '[G]it-diff prev hunk', noremap = true })
+vim.keymap.set('n', '<leader>r', ':1wincmd w|only|12sp|terminal godot<CR>i', { desc = 'Run Godot', noremap = true })
 -- Override git-diff next/prev hunk when in vs diff mode
 vim.api.nvim_create_autocmd('OptionSet', {
   pattern = 'diff',
@@ -619,11 +620,7 @@ require('lazy').setup({
     },
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  { -- Theme: Solarized
     'craftzdog/solarized-osaka.nvim',
     lazy = false,
     priority = 1000,
@@ -633,6 +630,16 @@ require('lazy').setup({
       vim.api.nvim_set_hl(0, 'LineNr', { fg = '#586c76', bg = '#063644' })
     end,
   },
+
+  --{ -- Theme: Monokai
+  --  'tanvirtin/monokai.nvim',
+  --  lazy = false,
+  --  priority = 1000,
+  --  config = function()
+  --    require('monokai').setup { palette = require('monokai').soda, pallete = {base1 = '#b1b1b1'} }
+  --    vim.api.nvim_set_hl(0, 'LineNr', { fg = '#dcd7ba', bg = '#1f1f28' })
+  --  end,
+  --},
 
   ---- Highlight todo, notes, etc in comments
   --{
@@ -742,7 +749,7 @@ require('lazy').setup({
     '3rd/image.nvim',
     build = false, -- so that it doesn't build the rock https://github.com/3rd/image.nvim/issues/91#issuecomment-2453430239
     opts = {
-      backend = 'ueberzug',
+      backend = 'sixel',
       processor = 'magick_cli', -- or "magick_cli"
       integrations = {
         markdown = {
